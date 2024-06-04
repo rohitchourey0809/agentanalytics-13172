@@ -5,6 +5,7 @@ import { RootState, AppDispatch } from '../store';
 import { selectProduct, updateProduct } from '../slices/productSlice';
 import { Product } from '../slices/types';
 import { Box, Text, Input, Button, VStack, FormControl, FormLabel, Image, HStack } from '@chakra-ui/react';
+import { toast } from 'react-toastify';
 
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -40,6 +41,7 @@ const ProductDetail: React.FC = () => {
     if (id) {
       const updatedProduct: Product = { id: parseInt(id, 10), title, price, image, description };
       dispatch(updateProduct(updatedProduct));
+      toast.success("Data Updated Successfully")
       setIsEditing(false);
     }
   };

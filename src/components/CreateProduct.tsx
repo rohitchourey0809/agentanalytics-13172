@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addProduct } from '../slices/productSlice';
 import { Box, Input, Button, VStack, FormControl, FormLabel, Image, Textarea } from '@chakra-ui/react';
+import { toast } from 'react-toastify';
 
 const CreateProduct: React.FC = () => {
   const dispatch = useDispatch();
@@ -13,6 +14,7 @@ const CreateProduct: React.FC = () => {
   const handleSubmit = () => {
     const newProduct = { id: Date.now(), title, price: parseFloat(price), image, description };
     dispatch(addProduct(newProduct));
+    toast.success("Creaet a product successfully")
     setTitle('');
     setPrice('');
     setDescription('');
