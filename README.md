@@ -1,6 +1,4 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
@@ -39,9 +37,34 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+# Product List Application
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+This is a React application that displays a list of products with the ability to search, view details, and paginate through the products. It also includes functionality to create new products and edit existing ones.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Features
+
+- Display a list of products
+- Search products by title
+- View product details
+- Create new products
+- Edit existing products
+- Pagination with toast notifications for boundary pages
+- Responsive design using Chakra UI
+
+## Technologies Used
+
+- React
+- Redux
+- TypeScript
+- Chakra UI
+- React Router
+- React Toastify
+
+## Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone [https://github.com/your-username/product-list-app.git](https://github.com/rohitchourey0809/agentanalytics-13172.git)
+
 # agentanalytics-13172
