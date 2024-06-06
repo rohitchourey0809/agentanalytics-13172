@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../store';
-import { addProductAsync } from '../slices/productSlice';
+import { addProductAsync, fetchProducts } from '../slices/productSlice';
 import { Box, Input, Button, VStack, FormControl, FormLabel, Image, Textarea } from '@chakra-ui/react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -13,17 +13,24 @@ const CreateProduct: React.FC = () => {
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');
+    const [loading, setLoading] = useState(false);
+  
 
   const handleSubmit = async () => {
     const newProduct = { id: Date.now(), title, price: parseFloat(price), image, description };
     try {
+      setLoading(true)
       await dispatch(addProductAsync(newProduct)).unwrap();
       toast.success('Product created successfully');
+      await dispatch(fetchProducts());
+       setLoading(false)
+
       setTitle('');
       setPrice('');
       setDescription('');
       setImage('');
     } catch (error) {
+       setLoading(false);
       toast.error('Failed to create product');
     }
   };
@@ -65,7 +72,7 @@ const CreateProduct: React.FC = () => {
             onChange={(e) => setDescription(e.target.value)}
           />
         </FormControl>
-        <Button colorScheme='teal' onClick={handleSubmit}>
+        <Button colorScheme='teal' onClick={handleSubmit} isLoading={loading}>
           Create Product
         </Button>
       </VStack>

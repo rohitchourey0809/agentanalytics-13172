@@ -16,6 +16,7 @@ const ProductList: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(6); // Number of products per page
+  
 
   useEffect(() => {
     dispatch(fetchProducts());

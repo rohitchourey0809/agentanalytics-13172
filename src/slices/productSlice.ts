@@ -14,7 +14,7 @@ export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async () => {
     const response = await axios.get(API_URL);
-    return response.data;
+    return response.data.reverse();
   }
 );
 
@@ -23,6 +23,14 @@ export const addProductAsync = createAsyncThunk(
   async (product: Product) => {
     const response = await axios.post(API_URL, product);
     return response.data;
+  }
+);
+
+export const deleteProductAsync = createAsyncThunk(
+  "products/deleteProductAsync",
+  async (productId: number) => {
+    await axios.delete(`${API_URL}/${productId}`);
+    return productId;
   }
 );
 
