@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../store';
-import { selectProduct, updateProduct } from '../slices/productSlice';
+import { selectProduct, updateProduct, updateProductAsync } from '../slices/productSlice';
 import { Product } from '../slices/types';
 import { Box, Text, Input, Button, VStack, FormControl, FormLabel, Image, HStack } from '@chakra-ui/react';
 import { toast } from 'react-toastify';
@@ -40,7 +40,7 @@ const ProductDetail: React.FC = () => {
   const handleSave = () => {
     if (id) {
       const updatedProduct: Product = { id: parseInt(id, 10), title, price, image, description };
-      dispatch(updateProduct(updatedProduct));
+      dispatch(updateProductAsync(updatedProduct));
       toast.success("Data Updated Successfully")
       setIsEditing(false);
     }

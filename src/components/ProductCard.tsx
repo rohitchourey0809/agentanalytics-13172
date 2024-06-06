@@ -16,35 +16,37 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       borderRadius="lg"
       overflow="hidden"
       p={4}
-      _hover={{ boxShadow: 'lg', transform: 'translateY(-5px)', transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out' }}
-      transition="all 0.3s ease"
+      boxShadow="md"
+      _hover={{ transform: 'translateY(-5px)', transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out' }}
       bg="white"
+      transition="all 0.3s ease"
     >
       <VStack spacing={4} align="stretch">
         <Image 
           src={product.image} 
           alt={product.title} 
-          w="100%" 
-          h="200px" 
           objectFit="cover"
           borderRadius="md"
+          h={60}
           transition="transform 0.3s ease-in-out"
           _hover={{ transform: 'scale(1.05)' }}
         />
-        <Text fontSize="2xl" fontWeight="bold" color="teal.500" textAlign="center">
-          {product.title}
-        </Text>
-        <Text fontSize="lg" color="gray.600" textAlign="center">
-          ${product.price.toFixed(2)}
-        </Text>
-        <Text fontSize="md" color="gray.500" noOfLines={2} textAlign="center">
-          {product.description}
-        </Text>
+        <VStack spacing={1} align="center">
+          <Text fontSize="xl" fontWeight="bold" color="teal.500">
+            {product.title}
+          </Text>
+          <Text fontSize="lg" color="gray.600">
+            ${product.price.toFixed(2)}
+          </Text>
+          <Text fontSize="md" color="gray.500" textAlign="center" noOfLines={2}>
+            {product.description}
+          </Text>
+        </VStack>
         <Button 
           colorScheme="teal" 
           onClick={() => navigate(`/products/${product.id}`)} 
           alignSelf="center"
-          mt={2}
+          _hover={{ transform: 'scale(1.05)', boxShadow: 'md' }}
         >
           View Details
         </Button>

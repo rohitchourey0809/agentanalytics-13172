@@ -1,0 +1,15 @@
+/* ProductList.css */
+
+.page-btn {
+  background-color: teal;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.page-btn:hover {
+  background-color: #008080;
+}
