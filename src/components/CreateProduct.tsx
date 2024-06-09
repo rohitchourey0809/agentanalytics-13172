@@ -17,7 +17,7 @@ const CreateProduct: React.FC = () => {
   
 
   const handleSubmit = async () => {
-    const newProduct = { id: Date.now(), title, price: parseFloat(price), image, description };
+    const newProduct = { id: Date.now(), title, price: parseFloat(price), image, description, favorite: false };
     try {
       setLoading(true)
       await dispatch(addProductAsync(newProduct)).unwrap();

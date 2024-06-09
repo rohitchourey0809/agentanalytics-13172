@@ -2,12 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '../store';
-import { updateProductAsync, fetchProducts } from '../slices/productSlice';
+import {  fetchProducts, toggleFavorite } from '../slices/productSlice';
 import ProductCard from './ProductCard';
 import { SimpleGrid, Box, Input, Button, HStack, Center } from '@chakra-ui/react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Product } from '../slices/types';
 import './ProductList.css'; // Import CSS file for styling
 
 const ProductList: React.FC = () => {
@@ -26,7 +25,6 @@ const ProductList: React.FC = () => {
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
 
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   const filteredProducts = currentProducts.filter((product) =>
     product.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -40,6 +38,8 @@ const ProductList: React.FC = () => {
     }
   };
 
+  
+
   const handleNextPage = () => {
     if (currentProducts.length < productsPerPage) {
       toast.info('You are already on the last page!');
@@ -48,10 +48,10 @@ const ProductList: React.FC = () => {
     }
   };
 
-  const handleUpdateProduct = async (product: Product) => {
-    await dispatch(updateProductAsync(product));
-    toast.success('Product updated successfully!');
+    const handleToggleFavorite = (productId: number) => {
+    dispatch(toggleFavorite(productId));
   };
+
 
   return (
     <Box p={4}>
@@ -63,7 +63,7 @@ const ProductList: React.FC = () => {
       />
       <SimpleGrid columns={[1, 2, 3]} spacing={4}>
         {filteredProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <ProductCard key={product.id} product={product}  onToggleFavorite={handleToggleFavorite} />
         ))}
       </SimpleGrid>
       <Center>

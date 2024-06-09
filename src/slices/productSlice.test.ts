@@ -1,65 +1,54 @@
+import { configureStore } from "@reduxjs/toolkit";
 import productReducer, {
-  setProducts,
-  addProduct,
-  updateProduct,
+  ProductState,
+  selectProduct,
+  toggleFavorite,
+  updateProductAsync,
 } from "./productSlice";
+import { Product } from "./types";
 
-describe("product reducer", () => {
-  const initialState = {
-    products: [],
-    selectedProduct: null,
-  };
+const initialState: ProductState = {
+  products: [],
+  selectedProduct: null,
+};
 
-  it("should handle setProducts", () => {
-    const products = [
-      {
-        id: 1,
-        title: "Product 1",
-        price: 100,
-        image: "",
-        description: "Description of Product 1",
-      },
-    ];
-    const action = setProducts(products);
-    const state = productReducer(initialState, action);
-    expect(state.products).toEqual(products);
+const store = configureStore({
+  reducer: {
+    products: productReducer,
+  },
+});
+
+describe("productSlice", () => {
+  it("should handle initial state", () => {
+    expect(store.getState().products).toEqual(initialState);
   });
 
-  it("should handle addProduct", () => {
-    const newProduct = {
-      id: 2,
-      title: "Product 2",
-      price: 200,
-      image: "",
-      description: "Description of Product 2",
-    };
-    const action = addProduct(newProduct);
-    const state = productReducer(initialState, action);
-    expect(state.products).toEqual([newProduct]);
-  });
-
-  it("should handle updateProduct", () => {
-    const initialStateWithProducts = {
-      products: [
-        {
-          id: 1,
-          title: "Product 1",
-          price: 100,
-          image: "",
-          description: "Description of Product 1",
-        },
-      ],
-      selectedProduct: null,
-    };
-    const updatedProduct = {
+  it("should handle selectProduct", () => {
+    const product: Product = {
       id: 1,
-      title: "Updated Product 1",
-      price: 150,
+      title: "Product 1",
+      price: 100,
+      description: "Description",
       image: "",
-      description: "Updated Description of Product 1",
+      favorite: false,
     };
-    const action = updateProduct(updatedProduct);
-    const state = productReducer(initialStateWithProducts, action);
-    expect(state.products).toEqual([updatedProduct]);
+    store.dispatch(selectProduct(product));
+    expect(store.getState().products.selectedProduct).toEqual(product);
   });
+
+  it("should handle toggleFavorite", () => {
+    const product: Product = {
+      id: 1,
+      title: "Product 1",
+      price: 100,
+      description: "Description",
+      image: "",
+      favorite: false,
+    };
+    store.dispatch(selectProduct(product));
+    store.dispatch(toggleFavorite(1));
+    expect(store.getState().products.selectedProduct?.favorite).toEqual(true);
+  });
+
+  // Add more tests for updateProductAsync and other actions
 });

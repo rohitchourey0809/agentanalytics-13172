@@ -18,6 +18,9 @@ const Navbar: React.FC = () => {
           <Link as={RouterLink} to="/create" px={2} color="white">
             Create Product
           </Link>
+           <Link as={RouterLink} to="/favorites" px={2} color="white">
+            Favorites
+          </Link>
         </Flex>
       </Flex>
     </Box>

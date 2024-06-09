@@ -2,10 +2,12 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { Product } from "./types";
 
-interface ProductState {
+export interface ProductState {
+  // Export ProductState here
   products: Product[];
   selectedProduct: Product | null;
 }
+
 
 const API_URL = "https://data-server-1.onrender.com/product";
 
@@ -66,6 +68,12 @@ const productSlice = createSlice({
         state.products[index] = action.payload;
       }
     },
+    toggleFavorite(state, action: PayloadAction<number>) {
+      const index = state.products.findIndex((p) => p.id === action.payload);
+      if (index !== -1) {
+        state.products[index].favorite = !state.products[index].favorite;
+      }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchProducts.fulfilled, (state, action) => {
@@ -83,7 +91,12 @@ const productSlice = createSlice({
   },
 });
 
-export const { setProducts, addProduct, selectProduct, updateProduct } =
-  productSlice.actions;
+export const {
+  setProducts,
+  addProduct,
+  selectProduct,
+  updateProduct,
+  toggleFavorite,
+} = productSlice.actions;
 
 export default productSlice.reducer;

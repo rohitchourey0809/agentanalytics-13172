@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../store';
-import { selectProduct, updateProduct, updateProductAsync } from '../slices/productSlice';
+import { selectProduct, updateProductAsync } from '../slices/productSlice';
+
 import { Product } from '../slices/types';
 import { Box, Text, Input, Button, VStack, FormControl, FormLabel, Image, HStack } from '@chakra-ui/react';
 import { toast } from 'react-toastify';
@@ -12,7 +13,6 @@ const ProductDetail: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const products = useSelector((state: RootState) => state.products.products);
   const selectedProduct = useSelector((state: RootState) => state.products.selectedProduct);
-
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState('');
   const [price, setPrice] = useState(0);
@@ -37,11 +37,18 @@ const ProductDetail: React.FC = () => {
     }
   }, [selectedProduct]);
 
-  const handleSave = () => {
-    if (id) {
-      const updatedProduct: Product = { id: parseInt(id, 10), title, price, image, description };
+ const handleSave = () => {
+    if (id && selectedProduct) {
+      const updatedProduct: Product = { 
+        id: parseInt(id, 10), 
+        title, 
+        price, 
+        image, 
+        description, 
+        favorite: selectedProduct.favorite 
+      };
       dispatch(updateProductAsync(updatedProduct));
-      toast.success("Data Updated Successfully")
+      toast.success("Data Updated Successfully");
       setIsEditing(false);
     }
   };
